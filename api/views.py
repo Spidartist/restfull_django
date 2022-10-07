@@ -21,15 +21,15 @@ def recipe_list(request):
         serializer = RecipeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'message': "Recipe successfully created!",
-                                 'recipe': [serializer.data]},
+            return JsonResponse({'message': "Recipe successfully created",
+                                 'recipe': [serializer.data]}, safe=False,
                                 status=status.HTTP_200_OK)
         else:
             return JsonResponse({
                                  "message": "Recipe creation failed!",
                                  "required": "title, making_time, serves, ingredients, cost"
                                 }, safe=False,
-                                status=status.HTTP_400_BAD_REQUEST)
+                                status=status.HTTP_200_OK)
 
 
 @api_view(['GET', 'DELETE', 'PATCH'])
