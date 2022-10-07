@@ -21,8 +21,8 @@ def recipe_list(request):
         serializer = RecipeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({'message': 'Recipe successfully created',
-                                 'recipe': [serializer.data]}, safe=False,
+            return JsonResponse({'message': "Recipe successfully created!",
+                                 'recipe': [serializer.data]},
                                 status=status.HTTP_200_OK)
         else:
             return JsonResponse({
