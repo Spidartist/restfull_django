@@ -24,7 +24,11 @@ def recipe_list(request):
             return JsonResponse({'message': 'Recipe successfully created', 'recipe': serializer.data}, safe=False,
                                 status=status.HTTP_200_OK)
         else:
-            return Http404
+            return JsonResponse({
+                                 "message": "Recipe creation failed!",
+                                 "required": "title, making_time, serves, ingredients, cost"
+                                }, safe=False,
+                                status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'DELETE', 'PATCH'])
@@ -40,8 +44,8 @@ def recipe_detail(request, id):
         for field in all_fields:
             if field not in fields:
                 serializer.fields.pop(field)
-        return JsonResponse({'message': 'Recipe details by id', 'recipe': serializer.data
-                            }, safe=False,
+        return JsonResponse({'message': 'Recipe details by id', 'recipe': [serializer.data]
+                            } , safe=False,
                             status=status.HTTP_200_OK)
     elif request.method == "PATCH":
         serializer = RecipeSerializer(recipe, data=request.data)
