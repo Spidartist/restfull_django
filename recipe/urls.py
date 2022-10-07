@@ -19,6 +19,6 @@ from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('recipes/', views.recipe_list),
+    path('recipes', views.recipe_list),
     path('recipes/<int:id>', views.recipe_detail)
 ]
